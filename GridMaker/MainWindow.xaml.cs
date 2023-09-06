@@ -22,7 +22,6 @@ namespace GridMaker
                 throw new System.Exception();
             }
 
-            UIElement = (UIElement) sender;
             startPoint_Player = e.GetPosition(this);
 
             UIElement.CaptureMouse();
