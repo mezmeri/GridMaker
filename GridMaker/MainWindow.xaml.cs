@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -13,27 +11,46 @@ namespace GridMaker
             InitializeComponent();
         }
 
+        bool isEditFormationActive = false;
+        bool isDrawRoutesActive = false;
+
+        bool isDrawingRoute = false;
+
+        private void AllowEditFormation(object sender, RoutedEventArgs e)
+        {
+            isDrawRoutesActive = false;
+            isEditFormationActive = true;
+        }
+
+        private void AllowDrawRoutes(object sender, RoutedEventArgs e)
+        {
+            isEditFormationActive = false;
+            isDrawRoutesActive = true;
+        }
+
+
+
         private Point startPoint_Player;
         private UIElement UIElement;
         private void SelectedPlayerToMove_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (UIElement == null)
+            if (isEditFormationActive == true)
             {
-                throw new System.Exception();
+                startPoint_Player = e.GetPosition(this);
+                UIElement = (UIElement)sender;
+                UIElement.CaptureMouse();
             }
-
-            startPoint_Player = e.GetPosition(this);
-
-            UIElement.CaptureMouse();
         }
 
         private void MovePlayer(object sender, MouseEventArgs e)
         {
-            UIElement = (UIElement) sender;
-            if (e.LeftButton == MouseButtonState.Released)
+            UIElement = (UIElement)sender;
+
+            if (e.LeftButton == MouseButtonState.Released || isEditFormationActive == false)
             {
                 UIElement.ReleaseMouseCapture();
-            } else
+            }
+            else if (isEditFormationActive)
             {
                 Point endPoint_Player = e.GetPosition(this);
 
@@ -46,12 +63,6 @@ namespace GridMaker
                     startPoint_Player = endPoint_Player;
                 }
             }
-        }
-        private void displayXYCoords(object sender, MouseEventArgs e)
-        {
-            Point point = e.GetPosition(this);
-            MouseXPos.Text = "Mouse X: " + point.X.ToString();
-            MouseYPos.Text = "Mouse Y: " + point.Y.ToString();
         }
     }
 }
