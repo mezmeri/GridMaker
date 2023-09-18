@@ -64,49 +64,49 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" Margin="0, 250, 0, 0" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="QB" Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" Margin="0, 250, 0, 0" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
                     <TextBlock Text="QB" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Border>
 
-                <Border Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" Margin="50, 280, 0, 0" Grid.ColumnSpan="3"  MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="RB" Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" Margin="50, 280, 0, 0" Grid.ColumnSpan="3"  MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
                     <TextBlock Text="RB" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Border>
 
-                <Border Grid.Column="0" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="LT" Grid.Column="0" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
                     <TextBlock Text="LT" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Border>
 
-                <Border Grid.Column="1" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="LG" Grid.Column="1" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
                     <TextBlock Text="LG" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Border>
 
-                <Border Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="C" Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
                     <TextBlock Text="C" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Border>
 
-                <Border Grid.Column="3" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="RG" Grid.Column="3" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
                     <TextBlock Text="RG" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Border>
 
-                <Border Grid.Column="4" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+                <Border x:Name="RT" Grid.Column="4" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Center" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0" />
                     </Border.RenderTransform>
@@ -114,28 +114,31 @@
                 </Border>
             </Grid>
 
-            <Border x:Name="WR1" Grid.Column="0" Width="50" Height="50" Background="Blue" CornerRadius="25" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+            <Border x:Name="WR1" Grid.Column="0" Width="50" Height="50" Background="Blue" CornerRadius="25" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="0"/>
                 </Border.RenderTransform>
-                <TextBlock Text="WR1" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <Grid>
+                    <TextBlock Text="WR1" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Canvas x:Name="RouteCanvas" Visibility="Collapsed"/>
+                </Grid>
             </Border>
 
-            <Border Grid.Column="0" Width="50" Height="50" Background="Blue" CornerRadius="25" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+            <Border x:Name="WR2" Grid.Column="0" Width="50" Height="50" Background="Blue" CornerRadius="25" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="100" Y="50"/>
                 </Border.RenderTransform>
                 <TextBlock Text="WR2" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Border>
 
-            <Border Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" Cursor="Hand" HorizontalAlignment="Left" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+            <Border x:Name="WR3" Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" Cursor="Hand" HorizontalAlignment="Left" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="160" Y="0" />
                 </Border.RenderTransform>
                 <TextBlock Text="WR3" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Border>
 
-            <Border Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Left" Cursor="Hand" MouseDown="SelectedPlayerToMove_MouseDown" MouseMove="MovePlayer">
+            <Border x:Name="TE" Grid.Column="2" Width="50" Height="50" Background="Blue" CornerRadius="25" HorizontalAlignment="Left" Cursor="Hand" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="20" />
                 </Border.RenderTransform>
