@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -13,28 +12,54 @@ namespace GridMaker
             InitializeComponent();
         }
 
+        private bool isEditFormationActive = false;
+        private bool isDrawRoutesActive = false;
+
+        private bool isDrawingRoute = false;
+
+        private void AllowEditFormation(object sender, RoutedEventArgs e)
+        {
+            isDrawRoutesActive = false;
+            isEditFormationActive = true;
+        }
+
+        private void AllowDrawRoutes(object sender, RoutedEventArgs e)
+        {
+            isEditFormationActive = false;
+            isDrawRoutesActive = true;
+        }
+
         private Point startPoint_Player;
         private UIElement UIElement;
-        private void SelectedPlayerToMove_MouseDown(object sender, MouseButtonEventArgs e)
+        private void SelectedPlayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (UIElement == null)
+            if (isEditFormationActive == true)
             {
-                throw new System.Exception();
+                startPoint_Player = e.GetPosition(this);
+                UIElement = (UIElement) sender;
+                UIElement.CaptureMouse();
+
+            } else if (isDrawRoutesActive)
+            {
+                // I want to send this information to the event handler responsible for handling route drawing. Will get back to it. 
+
+                UIElement = (UIElement) sender;
+
+                Border player = (Border) UIElement;
+                string playerName = player.Name;
+                MessageBox.Show(playerName);
             }
 
-            UIElement = (UIElement) sender;
-            startPoint_Player = e.GetPosition(this);
-
-            UIElement.CaptureMouse();
         }
 
         private void MovePlayer(object sender, MouseEventArgs e)
         {
             UIElement = (UIElement) sender;
-            if (e.LeftButton == MouseButtonState.Released)
+
+            if (e.LeftButton == MouseButtonState.Released || isEditFormationActive == false)
             {
                 UIElement.ReleaseMouseCapture();
-            } else
+            } else if (isEditFormationActive)
             {
                 Point endPoint_Player = e.GetPosition(this);
 
@@ -48,11 +73,21 @@ namespace GridMaker
                 }
             }
         }
-        private void displayXYCoords(object sender, MouseEventArgs e)
+
+        // Logic for drawing routes
+
+        // If the isDrawingRoutes is true, the user will be able to draw routes for the receivers. We will wait for the cursor to be on top of a player before we can initialize the drawing. While the left mouse button is pressed down, the route will be drawed.
+
+        private Point drawingStartPoint;
+        public void DrawRoutes(bool isDrawing, string player)
         {
-            Point point = e.GetPosition(this);
-            MouseXPos.Text = "Mouse X: " + point.X.ToString();
-            MouseYPos.Text = "Mouse Y: " + point.Y.ToString();
+            if (isDrawing && player != null)
+            {
+
+            } else
+            {
+
+            }
         }
     }
 }
