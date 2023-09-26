@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace GridMaker
 {
-    public partial class MainWindow : Window
+    internal partial class MainWindow : Window
     {
         public MainWindow()
         {
