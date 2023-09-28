@@ -30,26 +30,22 @@ namespace GridMaker
         }
 
         private Point startPoint_Player;
-        private UIElement UIElement;
+        private UIElement? UIElement;
         private void SelectedPlayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (isEditFormationActive == true)
+            if (isEditFormationActive)
             {
                 startPoint_Player = e.GetPosition(this);
                 UIElement = (UIElement) sender;
                 UIElement.CaptureMouse();
-
             } else if (isDrawRoutesActive)
             {
-                // I want to send this information to the event handler responsible for handling route drawing. Will get back to it. 
-
                 UIElement = (UIElement) sender;
 
                 Border player = (Border) UIElement;
                 string playerName = player.Name;
                 MessageBox.Show(playerName);
             }
-
         }
 
         private void MovePlayer(object sender, MouseEventArgs e)
