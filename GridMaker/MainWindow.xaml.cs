@@ -21,12 +21,14 @@ namespace GridMaker
         {
             isDrawRoutesActive = false;
             isEditFormationActive = true;
+            Cursor = Cursors.Hand;
         }
 
         private void AllowDrawRoutes(object sender, RoutedEventArgs e)
         {
             isEditFormationActive = false;
             isDrawRoutesActive = true;
+            Cursor = Cursors.Cross;
         }
 
         private Point startPoint_Player;
