@@ -8,6 +8,7 @@
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0, 0, 0, 250"/>
         </Style>
     </Window.Resources>
 
@@ -45,7 +46,7 @@
                 </Image.Source>
             </Image>
 
-            <Grid x:Name="OffensiveLineGrid" Grid.Column="1" Width="Auto" Margin="0,0,0,250" VerticalAlignment="Bottom">
+            <Grid x:Name="OffensiveLineGrid" Grid.Column="1" Width="Auto" VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -72,35 +73,35 @@
                 </Border>
 
 
-                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="LT" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
+                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="LT" Grid.Column="0" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0"/>
                     </Border.RenderTransform>
-                    <TextBlock FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
                 </Border>
 
-                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="LG" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
-                    <Border.RenderTransform>
-                        <TranslateTransform X="0" Y="0"/>
-                    </Border.RenderTransform>
-                    <TextBlock Text="" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Border>
-
-                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="CNT" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer" CornerRadius="0">
+                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="LG" Grid.Column="1" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0"/>
                     </Border.RenderTransform>
                     <TextBlock Text="" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="RG" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
+                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="CNT" Grid.Column="2" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer" CornerRadius="0">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0"/>
                     </Border.RenderTransform>
                     <TextBlock Text="" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="RT" Grid.Column="5" VerticalAlignment="Top" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
+                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="RG" Grid.Column="3" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
+                    <Border.RenderTransform>
+                        <TranslateTransform X="0" Y="0"/>
+                    </Border.RenderTransform>
+                    <TextBlock Text="" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+
+                <Border Style="{StaticResource FootballPlayerStyle}" x:Name="RT" Grid.Column="5" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
                         <TranslateTransform X="0" Y="0"/>
                     </Border.RenderTransform>
@@ -108,28 +109,28 @@
                 </Border>
             </Grid>
 
-            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR1" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer" Margin="0,0,0, 250">
+            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR1" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="0"/>
                 </Border.RenderTransform>
                 <TextBlock Text="X" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
-            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer" Margin="0,0,0, 250">
+            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="100" Y="30"/>
                 </Border.RenderTransform>
                 <TextBlock Text="Y" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
-            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR4" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer" Margin="0,0,0, 250">
+            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR4" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="0"/>
                 </Border.RenderTransform>
                 <TextBlock Text="Z" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
-            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="TEE" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer" Margin="0,0,0, 250">
+            <Border Style="{StaticResource FootballPlayerStyle}" x:Name="TEE" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="20"/>
                 </Border.RenderTransform>
