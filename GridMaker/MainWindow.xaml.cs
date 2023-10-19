@@ -1,5 +1,4 @@
-﻿using BeatShare_Demo;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -45,17 +44,17 @@ namespace GridMaker
                 path.StrokeThickness = 2;
                 path.Data = pathGeometry;
 
-                if (e.ButtonState == MouseButtonState.Pressed)
-                { isDrawing = true; } else { isDrawing = false; }
-
-                if (isDrawing)
-                {
-                    this.MouseMove += (s, e) =>
+                this.MouseMove += (s, e) =>
+                      {
+                          if (e.LeftButton == MouseButtonState.Pressed)
                           {
                               drawingEnd = e.GetPosition(OffensiveLineUpGrid);
                               routePath.Segments.Add(new LineSegment(drawingEnd, true));
-                          };
-                }
+
+                          } else
+                          {
+                          }
+                      };
                 OffensiveLineUpGrid.Children.Add(path);
                 Grid.SetColumnSpan(path, 3);
             }
