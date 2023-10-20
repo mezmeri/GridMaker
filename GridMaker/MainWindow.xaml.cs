@@ -1,91 +1,118 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace GridMaker
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        private bool isEditFormationActive = false;
-        private bool isDrawRoutesActive = false;
-
-        private bool isDrawingRoute = false;
-
+        private bool _isEditFormationActive = false;
+        private bool _isDrawRoutesActive = false;
         private void AllowEditFormation(object sender, RoutedEventArgs e)
         {
-            isDrawRoutesActive = false;
-            isEditFormationActive = true;
-            Cursor = Cursors.Hand;
+            _isDrawRoutesActive = false;
+            _isEditFormationActive = true;
         }
 
         private void AllowDrawRoutes(object sender, RoutedEventArgs e)
         {
-            isEditFormationActive = false;
-            isDrawRoutesActive = true;
+            _isEditFormationActive = false;
+            _isDrawRoutesActive = true;
             Cursor = Cursors.Cross;
         }
 
-        private Point startPoint_Player;
-        private UIElement? UIElement;
+        Point drawingStart;
+        Point drawingEnd;
+        bool isDrawing = false;
+        private void DrawingCanvas(object sender, MouseButtonEventArgs e)
+        {
+            if (_isDrawRoutesActive)
+            {
+                drawingStart = e.GetPosition(OffensiveLineUpGrid);
+
+                PathFigure routePath = new PathFigure();
+                routePath.StartPoint = drawingStart;
+
+                PathGeometry pathGeometry = new PathGeometry();
+                pathGeometry.Figures.Add(routePath);
+
+                Path path = new Path();
+                path.Stroke = Brushes.Black;
+                path.StrokeThickness = 2;
+                path.Data = pathGeometry;
+
+                this.MouseMove += (s, e) =>
+                      {
+                          if (e.LeftButton == MouseButtonState.Pressed)
+                          {
+                              drawingEnd = e.GetPosition(OffensiveLineUpGrid);
+                              routePath.Segments.Add(new LineSegment(drawingEnd, true));
+                          } else
+                          {
+
+                          }
+                      };
+                OffensiveLineUpGrid.Children.Add(path);
+                Grid.SetColumnSpan(path, 3);
+            }
+        }
+        private Point _startPoint_Player;
+        private Point _startPoint_Drawing;
         private void SelectedPlayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (isEditFormationActive)
-            {
-                startPoint_Player = e.GetPosition(this);
-                UIElement = (UIElement) sender;
-                UIElement.CaptureMouse();
-            } else if (isDrawRoutesActive)
-            {
-                UIElement = (UIElement) sender;
+            UIElement? _uIElement;
 
-                Border player = (Border) UIElement;
-                string playerName = player.Name;
-                MessageBox.Show(playerName);
+            if (_isEditFormationActive)
+            {
+                _startPoint_Player = e.GetPosition(this);
+                _uIElement = (UIElement) sender;
+                _uIElement.CaptureMouse();
+            } else if (_isDrawRoutesActive)
+            {
+                //_uIElement = (UIElement) sender;
+                //_startPoint_Drawing = e.GetPosition(this);
+                //Border player = (Border) _uIElement;
+                //DrawRoute(player, _startPoint_Drawing, e);
             }
         }
 
         private void MovePlayer(object sender, MouseEventArgs e)
         {
-            UIElement = (UIElement) sender;
+            UIElement? _uIElement;
+            _uIElement = (UIElement) sender;
 
-            if (e.LeftButton == MouseButtonState.Released || isEditFormationActive == false)
+            if (e.LeftButton == MouseButtonState.Released || _isEditFormationActive == false)
             {
-                UIElement.ReleaseMouseCapture();
-            } else if (isEditFormationActive)
+                _uIElement.ReleaseMouseCapture();
+            } else if (_isEditFormationActive)
             {
                 Point endPoint_Player = e.GetPosition(this);
 
-                TranslateTransform? translateTansform = UIElement.RenderTransform as TranslateTransform;
+                TranslateTransform? translateTansform = _uIElement.RenderTransform as TranslateTransform;
                 if (translateTansform != null)
                 {
-                    translateTansform.X += endPoint_Player.X - startPoint_Player.X;
-                    translateTansform.Y += endPoint_Player.Y - startPoint_Player.Y;
+                    translateTansform.X += endPoint_Player.X - _startPoint_Player.X;
+                    translateTansform.Y += endPoint_Player.Y - _startPoint_Player.Y;
 
-                    startPoint_Player = endPoint_Player;
+                    _startPoint_Player = endPoint_Player;
                 }
             }
         }
 
-        // Logic for drawing routes
-
-        // If the isDrawingRoutes is true, the user will be able to draw routes for the receivers. We will wait for the cursor to be on top of a player before we can initialize the drawing. While the left mouse button is pressed down, the route will be drawed.
-
-        private Point drawingStartPoint;
-        public void DrawRoutes(bool isDrawing, string player)
+        public MainWindow()
         {
-            if (isDrawing && player != null)
-            {
+            InitializeComponent();
 
-            } else
+            this.MouseMove += (o, e) =>
             {
+                Point position = e.GetPosition(OffensiveLineUpGrid);
+                Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
 
-            }
+                IsMouseMoving.Text = $"Mouse-over: {OffensiveLineUpGrid.IsMouseOver}";
+            };
         }
     }
 }

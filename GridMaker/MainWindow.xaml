@@ -11,24 +11,25 @@
         </Style>
     </Window.Resources>
 
-
-
     <Grid x:Name="MainWindowGrid" Margin="0,1,0,-1">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="SideBar" Width="100" />
+            <ColumnDefinition x:Name="SideBar" Width="150" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <StackPanel>
             <Button x:Name="EditFormation_Button" Click="AllowEditFormation" Margin="0, 0, 0 10">Edit formation</Button>
             <Button x:Name="DrawRoutes_Button" Click="AllowDrawRoutes">Draw routes</Button>
+
+            <TextBlock x:Name="Mouse_Pos"></TextBlock>
+            <TextBlock x:Name="IsMouseMoving"></TextBlock>
         </StackPanel>
 
-        <Grid x:Name="OffensiveLineUpGrid" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+        <Grid x:Name="OffensiveLineUpGrid" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" MouseDown="DrawingCanvas">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -39,9 +40,10 @@
                 <ColumnDefinition Width="370" />
             </Grid.ColumnDefinitions>
 
+
             <Image Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Stretch="Fill" StretchDirection="Both">
                 <Image.Source>
-                    <BitmapImage UriSource="C:\Users\Mads\source\repos\GridMaker\GridMaker\img\GridMaker Field.png"/>
+                    <BitmapImage UriSource="C:\Users\madss\source\repos\GridMaker\GridMaker\img\GridMaker Field.png"/>
                 </Image.Source>
             </Image>
 
@@ -68,9 +70,9 @@
                     <Border.RenderTransform>
                         <TranslateTransform X="50" Y="120"/>
                     </Border.RenderTransform>
+
                     <TextBlock Text="R" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
-
 
                 <Border Style="{StaticResource FootballPlayerStyle}" x:Name="LT" Grid.Column="0" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">
                     <Border.RenderTransform>
