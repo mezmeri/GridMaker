@@ -43,7 +43,7 @@
 
             <Image Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Stretch="Fill" StretchDirection="Both">
                 <Image.Source>
-                    <BitmapImage UriSource="C:\Users\Mads\source\repos\GridMaker\GridMaker\img\GridMaker Field.png"/>
+                    <BitmapImage UriSource="C:\Users\madss\source\repos\GridMaker\GridMaker\img\GridMaker Field.png"/>
                 </Image.Source>
             </Image>
 

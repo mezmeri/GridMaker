@@ -50,9 +50,9 @@ namespace GridMaker
                           {
                               drawingEnd = e.GetPosition(OffensiveLineUpGrid);
                               routePath.Segments.Add(new LineSegment(drawingEnd, true));
-
                           } else
                           {
+
                           }
                       };
                 OffensiveLineUpGrid.Children.Add(path);
