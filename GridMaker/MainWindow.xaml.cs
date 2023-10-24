@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,43 +25,68 @@ namespace GridMaker
             Cursor = Cursors.Cross;
         }
 
-        Point drawingStart;
-        Point drawingEnd;
-        bool isDrawing = false;
+        private Point drawingStartPoint;
+        private Point drawingEndPoint;
+
         private void DrawingCanvas(object sender, MouseButtonEventArgs e)
         {
+            List<Point> routePoints = new List<Point>();
+
             if (_isDrawRoutesActive)
             {
-                drawingStart = e.GetPosition(OffensiveLineUpGrid);
+                drawingStartPoint = e.GetPosition(OffensiveLineUpGrid);
 
-                PathFigure routePath = new PathFigure();
-                routePath.StartPoint = drawingStart;
+                Path? routePath = null;
 
-                PathGeometry pathGeometry = new PathGeometry();
-                pathGeometry.Figures.Add(routePath);
+                double minDistance = 10;
 
-                Path path = new Path();
-                path.Stroke = Brushes.Black;
-                path.StrokeThickness = 2;
-                path.Data = pathGeometry;
+                OffensiveLineUpGrid.MouseMove += (s, e) =>
+                {
+                    if (e.LeftButton == MouseButtonState.Pressed)
+                    {
+                        drawingEndPoint = e.GetPosition(OffensiveLineUpGrid);
 
-                this.MouseMove += (s, e) =>
-                      {
-                          if (e.LeftButton == MouseButtonState.Pressed)
-                          {
-                              drawingEnd = e.GetPosition(OffensiveLineUpGrid);
-                              routePath.Segments.Add(new LineSegment(drawingEnd, true));
-                          } else
-                          {
+                        if (drawingStartPoint == default(Point))
+                        {
+                            drawingStartPoint = drawingEndPoint;
+                            return;
+                        }
 
-                          }
-                      };
-                OffensiveLineUpGrid.Children.Add(path);
-                Grid.SetColumnSpan(path, 3);
+                        // Pythagorean theorem to calculate the distance between two points :p
+                        double distance = Math.Sqrt(Math.Pow(drawingEndPoint.X - drawingStartPoint.X, 2) + Math.Pow(drawingEndPoint.Y - drawingStartPoint.Y, 2));
+
+                        if (distance >= minDistance)
+                        {
+                            routePoints.Add(drawingEndPoint);
+                            drawingStartPoint = drawingEndPoint;
+                        }
+                    }
+                    
+                    if (e.LeftButton == MouseButtonState.Released)
+                    {
+
+                        PathFigure pathFigure = new PathFigure();
+
+                        PathGeometry pathGeometry = new PathGeometry();
+                        pathGeometry.Figures.Add(pathFigure);
+
+                        Path path = new Path();
+                        path.Stroke = Brushes.Black;
+                        path.StrokeThickness = 2;
+                        path.Data = pathGeometry;
+
+                        if (routePoints.Count >= 3)
+                        {
+                            pathFigure.Segments.Add(new QuadraticBezierSegment(routePoints[routePoints.Count - 2], drawingEndPoint, true));
+                        }
+                        OffensiveLineUpGrid.Children.Add(path);
+                        Grid.SetColumnSpan(path, 3);
+                    }
+                };
             }
         }
+
         private Point _startPoint_Player;
-        private Point _startPoint_Drawing;
         private void SelectedPlayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             UIElement? _uIElement;
@@ -72,10 +98,7 @@ namespace GridMaker
                 _uIElement.CaptureMouse();
             } else if (_isDrawRoutesActive)
             {
-                //_uIElement = (UIElement) sender;
-                //_startPoint_Drawing = e.GetPosition(this);
-                //Border player = (Border) _uIElement;
-                //DrawRoute(player, _startPoint_Drawing, e);
+                // Handle player menues etc
             }
         }
 
