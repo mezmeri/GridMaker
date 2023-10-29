@@ -16,6 +16,7 @@ namespace GridMaker
         {
             _isDrawRoutesActive = false;
             _isEditFormationActive = true;
+            Cursor = Cursors.Arrow;
         }
 
         private void AllowDrawRoutes(object sender, RoutedEventArgs e)
@@ -25,64 +26,34 @@ namespace GridMaker
             Cursor = Cursors.Cross;
         }
 
-        private Point drawingStartPoint;
-        private Point drawingEndPoint;
-
         private void DrawingCanvas(object sender, MouseButtonEventArgs e)
         {
             List<Point> routePoints = new List<Point>();
-
-            if (_isDrawRoutesActive)
+            MouseEventHandler mouseEventHandler = null;
+            Point position;
+            if (_isDrawRoutesActive && OffensiveLineUpGrid.IsMouseOver)
             {
-                drawingStartPoint = e.GetPosition(OffensiveLineUpGrid);
-
-                Path? routePath = null;
-
-                double minDistance = 10;
-
-                OffensiveLineUpGrid.MouseMove += (s, e) =>
+                if (e.LeftButton == MouseButtonState.Pressed)
                 {
-                    if (e.LeftButton == MouseButtonState.Pressed)
+                    position = e.GetPosition(OffensiveLineUpGrid);
+                    Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
+                    routePoints.Add(position);
+
+                }
+
+                mouseEventHandler = (s, e) =>
+                {
+                    if(e.LeftButton == MouseButtonState.Released)
                     {
-                        drawingEndPoint = e.GetPosition(OffensiveLineUpGrid);
-
-                        if (drawingStartPoint == default(Point))
-                        {
-                            drawingStartPoint = drawingEndPoint;
-                            return;
-                        }
-
-                        // Pythagorean theorem to calculate the distance between two points :p
-                        double distance = Math.Sqrt(Math.Pow(drawingEndPoint.X - drawingStartPoint.X, 2) + Math.Pow(drawingEndPoint.Y - drawingStartPoint.Y, 2));
-
-                        if (distance >= minDistance)
-                        {
-                            routePoints.Add(drawingEndPoint);
-                            drawingStartPoint = drawingEndPoint;
-                        }
-                    }
-                    
-                    if (e.LeftButton == MouseButtonState.Released)
+                        OffensiveLineUpGrid.MouseMove -= mouseEventHandler;
+                    } else
                     {
-
-                        PathFigure pathFigure = new PathFigure();
-
-                        PathGeometry pathGeometry = new PathGeometry();
-                        pathGeometry.Figures.Add(pathFigure);
-
-                        Path path = new Path();
-                        path.Stroke = Brushes.Black;
-                        path.StrokeThickness = 2;
-                        path.Data = pathGeometry;
-
-                        if (routePoints.Count >= 3)
-                        {
-                            pathFigure.Segments.Add(new QuadraticBezierSegment(routePoints[routePoints.Count - 2], drawingEndPoint, true));
-                        }
-                        OffensiveLineUpGrid.Children.Add(path);
-                        Grid.SetColumnSpan(path, 3);
+                        position = e.GetPosition(OffensiveLineUpGrid);
+                        Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
                     }
                 };
+
+                OffensiveLineUpGrid.MouseMove += mouseEventHandler;
             }
         }
 
@@ -128,14 +99,6 @@ namespace GridMaker
         public MainWindow()
         {
             InitializeComponent();
-
-            this.MouseMove += (o, e) =>
-            {
-                Point position = e.GetPosition(OffensiveLineUpGrid);
-                Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
-
-                IsMouseMoving.Text = $"Mouse-over: {OffensiveLineUpGrid.IsMouseOver}";
-            };
         }
     }
 }
