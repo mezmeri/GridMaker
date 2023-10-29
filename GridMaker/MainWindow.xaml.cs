@@ -26,7 +26,7 @@ namespace GridMaker
             Cursor = Cursors.Cross;
         }
 
-        private void DrawingCanvas(object sender, MouseButtonEventArgs e)
+        private void DrawRoutes_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
             List<Point> routePoints = new List<Point>();
             MouseEventHandler mouseEventHandler = null;
@@ -38,7 +38,6 @@ namespace GridMaker
                     position = e.GetPosition(OffensiveLineUpGrid);
                     Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
                     routePoints.Add(position);
-
                 }
 
                 mouseEventHandler = (s, e) =>
@@ -49,12 +48,18 @@ namespace GridMaker
                     } else
                     {
                         position = e.GetPosition(OffensiveLineUpGrid);
+                        routePoints.Add(position);
                         Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
                     }
                 };
 
                 OffensiveLineUpGrid.MouseMove += mouseEventHandler;
             }
+        }
+
+        private void CalculateDistance()
+        {
+
         }
 
         private Point _startPoint_Player;
@@ -69,7 +74,7 @@ namespace GridMaker
                 _uIElement.CaptureMouse();
             } else if (_isDrawRoutesActive)
             {
-                // Handle player menues etc
+                // Handle player menus etc
             }
         }
 

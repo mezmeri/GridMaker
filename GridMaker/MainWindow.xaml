@@ -29,7 +29,7 @@
             <TextBlock x:Name="IsMouseMoving"></TextBlock>
         </StackPanel>
 
-        <Grid x:Name="OffensiveLineUpGrid" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" MouseLeftButtonDown="DrawingCanvas">
+        <Grid x:Name="OffensiveLineUpGrid" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" MouseLeftButtonDown="DrawRoutes_LeftMouseDown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
