@@ -28,19 +28,15 @@ namespace GridMaker
 
         private void DrawRoutes_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            List<Point> routePoints = new List<Point>();
             MouseEventHandler mouseEventHandler = null;
-            Point startPoint = default(Point);
-            Point endPoint = default(Point);
+            Point startPoint;
+            Point endPoint;
             if (_isDrawRoutesActive && OffensiveLineUpGrid.IsMouseOver)
             {
-                if (e.LeftButton == MouseButtonState.Pressed)
-                {
-                    startPoint = e.GetPosition(OffensiveLineUpGrid);
-                    Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
-                    routePoints.Add(startPoint);
-                }
+                List<Point> routePoints = new List<Point>();
+                startPoint = e.GetPosition(OffensiveLineUpGrid);
+                routePoints.Add(startPoint);
+                Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
 
                 DistanceCalculator distanceCalculator = new DistanceCalculator();
                 int minDistance = 50;
@@ -52,17 +48,18 @@ namespace GridMaker
                     } else
                     {
                         endPoint = e.GetPosition(OffensiveLineUpGrid);
-
                         double distance = distanceCalculator.CalculateDistanceBetweenPoints(endPoint.X, startPoint.X, endPoint.Y, startPoint.Y);
                         if (distance > minDistance)
                         {
                             startPoint = endPoint;
                             Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
+
+                            // Drawing logic here
+                            routePoints.Add(startPoint);
                         }
 
                     }
                 };
-
                 OffensiveLineUpGrid.MouseMove += mouseEventHandler;
             }
         }
