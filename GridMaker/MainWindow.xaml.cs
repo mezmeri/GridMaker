@@ -28,38 +28,43 @@ namespace GridMaker
 
         private void DrawRoutes_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
+
             List<Point> routePoints = new List<Point>();
             MouseEventHandler mouseEventHandler = null;
-            Point position;
+            Point startPoint = default(Point);
+            Point endPoint = default(Point);
             if (_isDrawRoutesActive && OffensiveLineUpGrid.IsMouseOver)
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
-                    position = e.GetPosition(OffensiveLineUpGrid);
-                    Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
-                    routePoints.Add(position);
+                    startPoint = e.GetPosition(OffensiveLineUpGrid);
+                    Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
+                    routePoints.Add(startPoint);
                 }
 
+                DistanceCalculator distanceCalculator = new DistanceCalculator();
+                int minDistance = 50;
                 mouseEventHandler = (s, e) =>
                 {
-                    if(e.LeftButton == MouseButtonState.Released)
+                    if (e.LeftButton == MouseButtonState.Released)
                     {
                         OffensiveLineUpGrid.MouseMove -= mouseEventHandler;
                     } else
                     {
-                        position = e.GetPosition(OffensiveLineUpGrid);
-                        routePoints.Add(position);
-                        Mouse_Pos.Text = $"X: {position.X} / Y: {position.Y}";
+                        endPoint = e.GetPosition(OffensiveLineUpGrid);
+
+                        double distance = distanceCalculator.CalculateDistanceBetweenPoints(endPoint.X, startPoint.X, endPoint.Y, startPoint.Y);
+                        if (distance > minDistance)
+                        {
+                            startPoint = endPoint;
+                            Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
+                        }
+
                     }
                 };
 
                 OffensiveLineUpGrid.MouseMove += mouseEventHandler;
             }
-        }
-
-        private void CalculateDistance()
-        {
-
         }
 
         private Point _startPoint_Player;
