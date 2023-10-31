@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GridMaker
 {
-    public class DistanceCalculator
+    public static class DistanceCalculator
     {
-        public double CalculateDistanceBetweenPoints(double x1, double x2, double y1, double y2)
+        public static double CalculateDistanceBetweenPoints(double x1, double x2, double y1, double y2)
         {
             double distance = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y1 - y2, 2));
             return distance;

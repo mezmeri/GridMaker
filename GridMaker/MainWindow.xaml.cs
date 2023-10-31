@@ -38,7 +38,6 @@ namespace GridMaker
                 routePoints.Add(startPoint);
                 Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
 
-                DistanceCalculator distanceCalculator = new DistanceCalculator();
                 int minDistance = 50;
                 mouseEventHandler = (s, e) =>
                 {
@@ -48,7 +47,7 @@ namespace GridMaker
                     } else
                     {
                         endPoint = e.GetPosition(OffensiveLineUpGrid);
-                        double distance = distanceCalculator.CalculateDistanceBetweenPoints(endPoint.X, startPoint.X, endPoint.Y, startPoint.Y);
+                        double distance = DistanceCalculator.CalculateDistanceBetweenPoints(endPoint.X, startPoint.X, endPoint.Y, startPoint.Y);
                         if (distance > minDistance)
                         {
                             startPoint = endPoint;
