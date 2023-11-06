@@ -12,6 +12,8 @@ namespace GridMaker
     {
         private bool _isEditFormationActive = false;
         private bool _isDrawRoutesActive = false;
+        private static StateEnum.PROGRAM_STATE PROGRAM_STATE = StateEnum.PROGRAM_STATE.DRAWROUTES;
+
         private void AllowEditFormation(object sender, RoutedEventArgs e)
         {
             _isDrawRoutesActive = false;
