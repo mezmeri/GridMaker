@@ -23,7 +23,8 @@
 
         <StackPanel>
             <Button x:Name="EditFormation_Button" Click="AllowEditFormation" Margin="0, 0, 0 10">Edit formation</Button>
-            <Button x:Name="DrawRoutes_Button" Click="AllowDrawRoutes">Draw routes</Button>
+            <Button x:Name="DrawRoutes_Button" Click="AllowDrawRoutes" Margin="0, 0, 0 10">Draw routes</Button>
+            <Button x:Name="Add_Player" Click="Add_Player_Click">Add Player</Button>
 
             <TextBlock x:Name="Mouse_Pos"></TextBlock>
             <TextBlock x:Name="IsMouseMoving"></TextBlock>
@@ -114,7 +115,7 @@
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="0"/>
                 </Border.RenderTransform>
-                <TextBlock Text="X" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Text="X" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
 
             <Border Style="{StaticResource FootballPlayerStyle}" x:Name="WR2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" MouseDown="SelectedPlayer_MouseDown" MouseMove="MovePlayer">

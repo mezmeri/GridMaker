@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace GridMaker
 {
@@ -16,15 +17,13 @@ namespace GridMaker
         {
             _id = Guid.NewGuid().ToString();
         }
-
-        public string Position
-        {
-            set { _position = value; }
-        }
-
         public string Id
         {
             get { return _id; }
+        }
+        public string Position
+        {
+            set { _position = value; }
         }
     }
 }

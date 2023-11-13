@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using GridMaker.Controllers;
 
 namespace GridMaker
 {
@@ -122,10 +123,16 @@ namespace GridMaker
                 }
             }
         }
+        private async void Add_Player_Click(object sender, RoutedEventArgs e)
+        {
+            Border player = FieldController.AddPlayerToField();
 
+            OffensiveLineUpGrid.Children.Add(player);
+        }
         public MainWindow()
         {
             InitializeComponent();
         }
+
     }
 }
