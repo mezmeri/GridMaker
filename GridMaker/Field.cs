@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace GridMaker
 {
-    public class StateEnum
+    public class Field
     {
-        public enum PROGRAM_STATE 
-        {
-            DRAWROUTES,
-            EDITFORMATION
-        }
+        
     }
 }

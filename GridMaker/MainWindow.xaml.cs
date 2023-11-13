@@ -12,7 +12,6 @@ namespace GridMaker
     {
         private bool _isEditFormationActive = false;
         private bool _isDrawRoutesActive = false;
-        private static StateEnum.PROGRAM_STATE PROGRAM_STATE = StateEnum.PROGRAM_STATE.DRAWROUTES;
 
         private void AllowEditFormation(object sender, RoutedEventArgs e)
         {
@@ -33,14 +32,27 @@ namespace GridMaker
             MouseEventHandler mouseEventHandler = null;
             Point startPoint;
             Point endPoint;
+
+            // Graphics for route
+            Path path = new Path();
+            path.StrokeThickness = 4;
+            path.Stroke = Brushes.Black;
+
+            PathFigure pathFigure;
+            PathGeometry pathGeometry;
+
             if (_isDrawRoutesActive && OffensiveLineUpGrid.IsMouseOver)
             {
+                pathFigure = new();
+                pathGeometry = new();
+
                 List<Point> routePoints = new List<Point>();
                 startPoint = e.GetPosition(OffensiveLineUpGrid);
                 routePoints.Add(startPoint);
+                pathFigure.StartPoint = routePoints[0];
                 Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
 
-                int minDistance = 50;
+                int minDistance = 17;
                 mouseEventHandler = (s, e) =>
                 {
                     if (e.LeftButton == MouseButtonState.Released)
@@ -49,19 +61,26 @@ namespace GridMaker
                     } else
                     {
                         endPoint = e.GetPosition(OffensiveLineUpGrid);
+
                         double distance = DistanceCalculator.CalculateDistanceBetweenPoints(endPoint.X, startPoint.X, endPoint.Y, startPoint.Y);
                         if (distance > minDistance)
                         {
                             startPoint = endPoint;
                             Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
 
-                            // Drawing logic here
                             routePoints.Add(startPoint);
+
+                            pathGeometry.Figures.Add(pathFigure);
+                            path.Data = pathGeometry;
+
+                            pathFigure.Segments.Add(new QuadraticBezierSegment(routePoints[routePoints.Count - 2], endPoint, true));
                         }
 
                     }
                 };
                 OffensiveLineUpGrid.MouseMove += mouseEventHandler;
+                OffensiveLineUpGrid.Children.Add(path);
+                Grid.SetColumnSpan(path, 3);
             }
         }
 
