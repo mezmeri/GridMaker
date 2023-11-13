@@ -29,7 +29,7 @@
             <TextBlock x:Name="IsMouseMoving"></TextBlock>
         </StackPanel>
 
-        <Grid x:Name="OffensiveLineUpGrid" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" MouseDown="DrawingCanvas">
+        <Grid x:Name="OffensiveLineUpGrid" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" MouseLeftButtonDown="DrawRoutes_LeftMouseDown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -43,7 +43,7 @@
 
             <Image Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Stretch="Fill" StretchDirection="Both">
                 <Image.Source>
-                    <BitmapImage UriSource="C:\Users\madss\source\repos\GridMaker\GridMaker\img\GridMaker Field.png"/>
+                    <BitmapImage UriSource="C:\Users\Mads\source\repos\GridMaker\GridMaker\img\GridMaker Field.png"/>
                 </Image.Source>
             </Image>
 
