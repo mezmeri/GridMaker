@@ -11,23 +11,18 @@ namespace GridMaker.Controllers
 {
     public partial class FieldController
     {
+
         public void AddToList(Player player)
         {
 
-        }
+        }   
 
-        public static Border AddPlayerToField()
+        public static string GenerateUniqueIdentifier()
         {
-            Border border = new Border();
-            border.Width = 30;
-            border.Height = 30;
-            border.CornerRadius = new System.Windows.CornerRadius(25);
-            border.BorderBrush = Brushes.Black;
-            border.BorderThickness = new System.Windows.Thickness(2);
-            border.Background = Brushes.Transparent;
-            border.Margin = new System.Windows.Thickness(0);
+            string guid = Guid.NewGuid().ToString();
+            string _id = new string(guid.Insert(0, "B").Replace('-', 'B'));
 
-            return border;
+            return _id;
         }
     }
 }

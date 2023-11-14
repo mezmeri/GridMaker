@@ -53,7 +53,7 @@ namespace GridMaker
                 pathFigure.StartPoint = routePoints[0];
                 Mouse_Pos.Text = $"X: {startPoint.X} / Y: {startPoint.Y}";
 
-                int minDistance = 17;
+                int minDistance = 13;
                 mouseEventHandler = (s, e) =>
                 {
                     if (e.LeftButton == MouseButtonState.Released)
@@ -93,8 +93,13 @@ namespace GridMaker
             if (_isEditFormationActive)
             {
                 _startPoint_Player = e.GetPosition(this);
-                _uIElement = (UIElement) sender;
-                _uIElement.CaptureMouse();
+                _uIElement = sender as UIElement;
+
+                if (_uIElement != null)
+                {
+                    _uIElement.CaptureMouse();
+                }
+
             } else if (_isDrawRoutesActive)
             {
                 // Handle player menus etc
@@ -104,29 +109,35 @@ namespace GridMaker
         private void MovePlayer(object sender, MouseEventArgs e)
         {
             UIElement? _uIElement;
-            _uIElement = (UIElement) sender;
+            _uIElement = sender as UIElement;
 
-            if (e.LeftButton == MouseButtonState.Released || _isEditFormationActive == false)
+            if (_uIElement != null && _uIElement.IsMouseCaptured)
             {
-                _uIElement.ReleaseMouseCapture();
-            } else if (_isEditFormationActive)
-            {
-                Point endPoint_Player = e.GetPosition(this);
-
-                TranslateTransform? translateTansform = _uIElement.RenderTransform as TranslateTransform;
-                if (translateTansform != null)
+                if (e.LeftButton == MouseButtonState.Released || _isEditFormationActive == false)
                 {
-                    translateTansform.X += endPoint_Player.X - _startPoint_Player.X;
-                    translateTansform.Y += endPoint_Player.Y - _startPoint_Player.Y;
+                    _uIElement.ReleaseMouseCapture();
+                } else if (_isEditFormationActive)
+                {
+                    Point endPoint_Player = e.GetPosition(this);
 
-                    _startPoint_Player = endPoint_Player;
+                    TranslateTransform translateTansform = _uIElement.RenderTransform as TranslateTransform;
+                    if (translateTansform != null)
+                    {
+                        translateTansform.X += endPoint_Player.X - _startPoint_Player.X;
+                        translateTansform.Y += endPoint_Player.Y - _startPoint_Player.Y;
+
+                        _startPoint_Player = endPoint_Player;
+                    } else
+                    {
+                        MessageBox.Show("An error occured while attempting to drag the player. Try restarting the application. Remember to save your work.");
+                    }
                 }
             }
         }
-        private async void Add_Player_Click(object sender, RoutedEventArgs e)
+        private void Add_Player_Click(object sender, RoutedEventArgs e)
         {
-            Border player = FieldController.AddPlayerToField();
-
+            UIElement _uiElement = PlayerController.CreateNewPlayer();
+            Border player = (Border) _uiElement;
             OffensiveLineUpGrid.Children.Add(player);
         }
         public MainWindow()

@@ -8,6 +8,9 @@ namespace GridMaker.Controllers
 {
     public class FormationsController
     {
+        public void InitFormation()
+        {
 
+        }
     }
 }

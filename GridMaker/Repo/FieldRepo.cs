@@ -8,5 +8,6 @@ namespace GridMaker.Repo
 {
     public class FieldRepo
     {
+        private List<Player> _amountOfPlayersOnTheField = new();
     }
 }
