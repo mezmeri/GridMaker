@@ -9,9 +9,8 @@ using System.Windows.Media;
 
 namespace GridMaker.Controllers
 {
-    public partial class FieldController
+    public class FieldController
     {
-
         public void AddToList(Player player)
         {
 

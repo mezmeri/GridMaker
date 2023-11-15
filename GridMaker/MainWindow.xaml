@@ -11,17 +11,17 @@
         </Style>
     </Window.Resources>
 
-    <Grid x:Name="MainWindowGrid" Margin="0,1,0,-1">
+    <Grid x:Name="MainWindowGrid" Margin="0, 5,0, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="SideBar" Width="150" />
+            <ColumnDefinition x:Name="SideBar" Width="100" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
+        <StackPanel x:Name="SideBarStackPanel">
             <Button x:Name="EditFormation_Button" Click="AllowEditFormation" Margin="0, 0, 0 10">Edit formation</Button>
             <Button x:Name="DrawRoutes_Button" Click="AllowDrawRoutes" Margin="0, 0, 0 10">Draw routes</Button>
             <Button x:Name="Add_Player" Click="Add_Player_Click">Add Player</Button>

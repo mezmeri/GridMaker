@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -92,11 +93,13 @@ namespace GridMaker
 
             if (_isEditFormationActive)
             {
-                _startPoint_Player = e.GetPosition(this);
+                _startPoint_Player = e.GetPosition(OffensiveLineUpGrid);
                 _uIElement = sender as UIElement;
+                Border player = (Border) _uIElement;
 
-                if (_uIElement != null)
+                if (_uIElement != null) 
                 {
+                    MessageBox.Show(player.Name);
                     _uIElement.CaptureMouse();
                 }
 
@@ -111,39 +114,51 @@ namespace GridMaker
             UIElement? _uIElement;
             _uIElement = sender as UIElement;
 
-            if (_uIElement != null && _uIElement.IsMouseCaptured)
+            if (e.LeftButton != MouseButtonState.Pressed || _uIElement == null)
             {
-                if (e.LeftButton == MouseButtonState.Released || _isEditFormationActive == false)
-                {
-                    _uIElement.ReleaseMouseCapture();
-                } else if (_isEditFormationActive)
-                {
-                    Point endPoint_Player = e.GetPosition(this);
+                _uIElement.ReleaseMouseCapture();
+            } else if (_uIElement != null && _uIElement.IsMouseCaptureWithin && _isEditFormationActive)
+            {
+                Point endPoint_Player = e.GetPosition(OffensiveLineUpGrid);
 
-                    TranslateTransform translateTansform = _uIElement.RenderTransform as TranslateTransform;
-                    if (translateTansform != null)
-                    {
-                        translateTansform.X += endPoint_Player.X - _startPoint_Player.X;
-                        translateTansform.Y += endPoint_Player.Y - _startPoint_Player.Y;
+                TranslateTransform translateTansform = _uIElement.RenderTransform as TranslateTransform;
 
-                        _startPoint_Player = endPoint_Player;
-                    } else
-                    {
-                        MessageBox.Show("An error occured while attempting to drag the player. Try restarting the application. Remember to save your work.");
-                    }
+                if (translateTansform != null)
+                {
+                    translateTansform.X += endPoint_Player.X - _startPoint_Player.X;
+                    translateTansform.Y += endPoint_Player.Y - _startPoint_Player.Y;
+
+                    _startPoint_Player = endPoint_Player;
+                } else
+                {
+                    MessageBox.Show("An error occured while attempting to drag the player. Try restarting the application. Remember to save your work.", "An error occured", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
         }
         private void Add_Player_Click(object sender, RoutedEventArgs e)
         {
             UIElement _uiElement = PlayerController.CreateNewPlayer();
-            Border player = (Border) _uiElement;
+            UIElement player = _uiElement;
             OffensiveLineUpGrid.Children.Add(player);
+            player.MouseLeftButtonDown += SelectedPlayer_MouseDown;
+            player.MouseMove += MovePlayer;
         }
         public MainWindow()
         {
             InitializeComponent();
-        }
 
+            Trace.WriteLine("FIELD WIDTH: " + Field.Width);
+
+            TextBlock textBlock = new();
+            TextBlock textBlock1 = new();
+            SideBarStackPanel.Children.Add(textBlock);
+            SideBarStackPanel.Children.Add(textBlock1);
+
+            OffensiveLineUpGrid.MouseMove += (s, e) =>
+            {
+                textBlock.Text = $"WIDTH: {OffensiveLineUpGrid.ActualWidth} \n HEIGTH: {OffensiveLineUpGrid.ActualHeight}";
+                textBlock1.Text = $"X/Y: {e.GetPosition(OffensiveLineUpGrid)}";
+            };
+        }
     }
 }

@@ -10,8 +10,11 @@ namespace GridMaker.Repo
     public class PlayerRepo
     {
         private Dictionary<string, Player> ListOfAllPlayers = new();
-        private Dictionary<int, Point> ListOfOffensiveFormation = new();
-        private Dictionary<int, Point> ListOfDefensiveFormation = new();
+
+        public void AddToList_AllPlayers(string guid, Player player)
+        {
+            ListOfAllPlayers.Add(guid, player);
+        }
 
         public void SavePlayer(Player player)
         {
@@ -29,7 +32,7 @@ namespace GridMaker.Repo
                 } else
                 {
                     result = null;
-                    throw new Exception("Player could not be found.");
+                    MessageBox.Show("Player could not be found", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
             }
