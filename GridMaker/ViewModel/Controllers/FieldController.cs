@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker
+namespace GridMaker.ViewModel.Controllers
 {
-    public enum PROGRAM_STATE
+    public class FieldController
     {
-        DRAWROUTES,
-        EDITFORMATION
+
     }
 }

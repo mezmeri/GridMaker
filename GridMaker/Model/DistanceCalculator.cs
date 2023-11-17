@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker
+namespace GridMaker.Model
 {
     public class DistanceCalculator
     {

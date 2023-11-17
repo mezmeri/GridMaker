@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker.Repo
+namespace GridMaker.Model
 {
-    public class FieldRepo
+    public enum PROGRAM_STATE
     {
+        DRAWROUTES,
+        EDITFORMATION
     }
 }

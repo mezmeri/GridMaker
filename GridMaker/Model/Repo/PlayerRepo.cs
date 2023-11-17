@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker.Repo
+namespace GridMaker.Model.Repo
 {
     public class PlayerRepo
     {
@@ -26,14 +26,15 @@ namespace GridMaker.Repo
                 if (key.Value.Equals(id))
                 {
                     result = key.Value;
-                } else
+                }
+                else
                 {
                     result = null;
                     throw new Exception("Player could not be found.");
                 }
 
             }
-                return result;
+            return result;
         }
 
         public void RemovePlayer(Player player)

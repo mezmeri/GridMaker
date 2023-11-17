@@ -1,11 +1,11 @@
 ﻿using System;
-using GridMaker.Controllers;
+using GridMaker.ViewModel.Controllers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker
+namespace GridMaker.Model
 {
     public class Player
     {

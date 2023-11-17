@@ -1,4 +1,5 @@
-﻿using GridMaker.Repo;
+﻿using GridMaker.Model;
+using GridMaker.Model.Repo;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker.Controllers
+namespace GridMaker.ViewModel.Controllers
 {
     public class PlayerController
     {

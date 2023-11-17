@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridMaker.Controllers
+namespace GridMaker.Model.Repo
 {
-    public class FieldController
+    public class FieldRepo
     {
-
     }
 }
